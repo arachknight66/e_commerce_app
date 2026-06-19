@@ -5,9 +5,9 @@ import { PORT } from "./src/config/config.js";
 
 // Route imports (uncomment as you build each module)
 import authRoutes from "./src/routes/authRoutes.js";
-// import productRoutes from "./src/routes/productRoutes.js";
-// import cartRoutes from "./src/routes/cartRoutes.js";
-// import orderRoutes from "./src/routes/orderRoutes.js";
+import productRoutes from "./src/routes/productRoutes.js";
+import cartRoutes from "./src/routes/cartRoutes.js";
+import orderRoutes from "./src/routes/orderRoutes.js";
 
 import { errorHandler } from "./src/middleware/errorMiddleware.js";
 
@@ -28,9 +28,9 @@ app.get("/", (req, res) => {
 
 // ─── API Routes ───────────────────────────────────────────────────────────────
 app.use("/api/auth", authRoutes);
-// app.use("/api/products", productRoutes);
-// app.use("/api/cart",     cartRoutes);
-// app.use("/api/orders",   orderRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
 
 // ─── 404 Handler ─────────────────────────────────────────────────────────────
 app.use((req, res, next) => {
