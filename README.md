@@ -51,7 +51,7 @@ Make sure you have [Node.js](https://nodejs.org/) installed (version >= 18).
    ```env
    PORT=5000
    NODE_ENV=development
-   MONGODB_URI=mongodb+srv://dakshsaini889_db_user:eZMGaGhTZsJFtOek@ecommerceapp.2rmsk6y.mongodb.net/?appName=Ecommerceapp
+   MONGODB_URI=your_mongodb_connection_string
    JWT_SECRET=your_super_secret_jwt_key_change_in_production
    JWT_EXPIRES_IN=7d
    API_URL=http://<YOUR_LOCAL_IP>:5000
