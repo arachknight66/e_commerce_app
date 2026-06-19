@@ -22,7 +22,7 @@ const products = [
         isFeatured: true,
     },
     {
-        name: "Samsung 4K Smart TV 55\"",
+        name: "Samsung 4K Smart TV 55",
         description: "Crystal clear 4K display with built-in streaming apps and smart home integration.",
         price: 749.99,
         images: [`${baseUrl}/public/images/products/samsung_tv.jpg`],
