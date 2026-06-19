@@ -4,12 +4,12 @@ import { connectDB } from "./src/config/db.js";
 import { PORT } from "./src/config/config.js";
 
 // Route imports (uncomment as you build each module)
-// import authRoutes from "./src/routes/authRoutes.js";
+import authRoutes from "./src/routes/authRoutes.js";
 // import productRoutes from "./src/routes/productRoutes.js";
 // import cartRoutes from "./src/routes/cartRoutes.js";
 // import orderRoutes from "./src/routes/orderRoutes.js";
 
-// import { errorHandler } from "./src/middleware/errorMiddleware.js";
+import { errorHandler } from "./src/middleware/errorMiddleware.js";
 
 const app = express();
 
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 // ─── API Routes ───────────────────────────────────────────────────────────────
-// app.use("/api/auth",     authRoutes);
+app.use("/api/auth", authRoutes);
 // app.use("/api/products", productRoutes);
 // app.use("/api/cart",     cartRoutes);
 // app.use("/api/orders",   orderRoutes);
@@ -40,15 +40,7 @@ app.use((req, res, next) => {
 });
 
 // ─── Global Error Handler ─────────────────────────────────────────────────────
-// Replace with: app.use(errorHandler) once errorMiddleware.js is built
-app.use((err, req, res, next) => {
-    const statusCode = err.statusCode || 500;
-    res.status(statusCode).json({
-        success: false,
-        message: err.message || "Internal Server Error",
-        ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
-    });
-});
+app.use(errorHandler);
 
 // ─── Start Server ─────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
