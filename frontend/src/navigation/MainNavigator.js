@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { View, Text } from "react-native";
 
-import HomeStackNavigator from "./HomeStackNavigator";
+import HomeScreen from "../screens/home/HomeScreen";
 import CartScreen from "../screens/cart/CartScreen";
 import OrderHistoryScreen from "../screens/orders/OrderHistoryScreen";
 import ProfileScreen from "../screens/profile/ProfileScreen";
@@ -91,7 +91,7 @@ export default function MainNavigator() {
                 },
             })}
         >
-            <Tab.Screen name="HomeTab" component={HomeStackNavigator} options={{ title: "Home" }} />
+            <Tab.Screen name="HomeTab" component={HomeScreen} options={{ title: "Home" }} />
             <Tab.Screen name="CartTab" component={CartScreen} options={{ title: "Cart" }} />
             <Tab.Screen name="OrdersTab" component={OrderHistoryScreen} options={{ title: "Orders" }} />
             <Tab.Screen name="ProfileTab" component={ProfileScreen} options={{ title: "Profile" }} />

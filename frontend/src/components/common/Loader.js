@@ -1,7 +1,7 @@
 import { View, ActivityIndicator, Text, StyleSheet } from "react-native";
 import { theme } from "../../styles/theme";
 
-export default function Loader({ message = "Loading…", size = "large", fullScreen = false }) {
+export default function Loader({ message = "Loading...", size = "large", fullScreen = false }) {
     if (fullScreen) {
         return (
             <View style={styles.fullScreen}>

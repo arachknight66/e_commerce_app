@@ -38,7 +38,7 @@ export default function HomeScreen({ navigation }) {
             setError(null);
             const [featuredData, productsData] = await Promise.all([
                 productService.getFeaturedProducts(),
-                productService.getProducts({ limit: 8 }),
+                productService.getProducts({ limit: 20 }),
             ]);
             setFeatured(featuredData);
             setProducts(productsData.products);
@@ -62,7 +62,7 @@ export default function HomeScreen({ navigation }) {
 
     const goToSearch = () => navigation.navigate("ProductListing", { autoFocus: true });
 
-    if (loading) return <Loader fullScreen message="Loading…" />;
+    if (loading) return <Loader fullScreen message="Loading..." />;
     if (error) return <ErrorMessage message={error} onRetry={load} />;
 
     const firstName = user?.name?.split(" ")[0] || "there";
@@ -77,7 +77,7 @@ export default function HomeScreen({ navigation }) {
             {/* Header */}
             <View style={[styles.header, { paddingTop: insets.top + theme.spacing.sm }]}>
                 <View>
-                    <Text style={styles.greeting}>Hello, {firstName} 👋</Text>
+                    <Text style={styles.greeting}>Hello, {firstName}</Text>
                     <Text style={styles.subGreeting}>Discover something new today</Text>
                 </View>
                 <Pressable
@@ -91,7 +91,7 @@ export default function HomeScreen({ navigation }) {
             {/* Search bar (tappable → navigates to listing) */}
             <Pressable onPress={goToSearch} style={styles.searchBar}>
                 <Ionicons name="search-outline" size={18} color={theme.colors.muted} />
-                <Text style={styles.searchPlaceholder}>Search products…</Text>
+                <Text style={styles.searchPlaceholder}>Search products...</Text>
             </Pressable>
 
             {/* Featured banner */}

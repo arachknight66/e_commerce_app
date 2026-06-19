@@ -20,7 +20,7 @@ import Loader from "../../components/common/Loader";
 import * as productService from "../../services/productService";
 import { theme } from "../../styles/theme";
 
-const LIMIT = 10;
+const LIMIT = 20;
 
 export default function ProductListingScreen({ navigation, route }) {
     const insets = useSafeAreaInsets();
@@ -116,7 +116,7 @@ export default function ProductListingScreen({ navigation, route }) {
                         style={styles.searchInput}
                         value={search}
                         onChangeText={handleSearchChange}
-                        placeholder="Search products…"
+                        placeholder="Search products..."
                         placeholderTextColor={theme.colors.muted}
                         returnKeyType="search"
                         clearButtonMode="while-editing"
@@ -135,7 +135,7 @@ export default function ProductListingScreen({ navigation, route }) {
             </View>
 
             {loading ? (
-                <Loader fullScreen message="Finding products…" />
+                <Loader fullScreen message="Finding products..." />
             ) : error ? (
                 <ErrorMessage message={error} onRetry={() => fetchProducts(search, category, 1, false)} />
             ) : products.length === 0 ? (

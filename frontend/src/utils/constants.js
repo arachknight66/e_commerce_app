@@ -58,8 +58,6 @@ export const ORDER_STATUS_COLORS = {
 
 export const PAYMENT_METHODS = [
     { id: "COD", label: "Cash on Delivery", icon: "cash" },
-    { id: "Card", label: "Credit / Debit Card", icon: "card" },
-    { id: "UPI", label: "UPI", icon: "phone-portrait" },
 ];
 
 export const PAGINATION = {

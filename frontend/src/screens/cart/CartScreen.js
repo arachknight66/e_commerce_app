@@ -52,7 +52,7 @@ export default function CartScreen({ navigation }) {
         navigation.navigate("Checkout");
     };
 
-    if (isLoading) return <Loader fullScreen message="Loading cart…" />;
+    if (isLoading) return <Loader fullScreen message="Loading cart..." />;
 
     return (
         <View style={[styles.flex, { paddingTop: insets.top }]}>

@@ -6,7 +6,6 @@ import {
     StyleSheet,
     KeyboardAvoidingView,
     Platform,
-    Pressable,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,7 +20,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { useToast } from "../../hooks/useToast";
 import { validateShippingAddress } from "../../utils/validators";
 import { formatPrice } from "../../utils/formatters";
-import { PAYMENT_METHODS } from "../../utils/constants";
 import { theme } from "../../styles/theme";
 
 export default function CheckoutScreen({ navigation }) {
@@ -34,13 +32,8 @@ export default function CheckoutScreen({ navigation }) {
     const [city, setCity] = useState(user?.address?.city || "");
     const [zip, setZip] = useState(user?.address?.zip || "");
     const [country, setCountry] = useState(user?.address?.country || "");
-    const [paymentMethod, setPaymentMethod] = useState("COD");
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
-
-    const shipping = totalPrice > 50 ? 0 : 4.99;
-    const tax = totalPrice * 0.08;
-    const grandTotal = totalPrice + shipping + tax;
 
     const handlePlaceOrder = async () => {
         const address = { street, city, zip, country };
@@ -49,11 +42,10 @@ export default function CheckoutScreen({ navigation }) {
         setErrors({});
         setLoading(true);
         try {
-            await orderService.placeOrder({ shippingAddress: address, paymentMethod });
+            await orderService.placeOrder({ shippingAddress: address, paymentMethod: "COD" });
             await clear();
-            toastSuccess("Order placed successfully! 🎉");
-            navigation.navigate("Main");
-            navigation.navigate("OrdersTab");
+            toastSuccess("Order placed successfully!");
+            navigation.navigate("Main", { screen: "OrdersTab" });
         } catch (e) {
             toastError(e.message || "Could not place order. Please try again.");
         } finally {
@@ -124,45 +116,21 @@ export default function CheckoutScreen({ navigation }) {
                     </View>
                 </View>
 
-                {/* Payment method */}
+                {/* Payment method - COD only */}
                 <View style={styles.card}>
                     <View style={styles.cardHeader}>
-                        <Ionicons name="card-outline" size={20} color={theme.colors.primary} />
+                        <Ionicons name="cash-outline" size={20} color={theme.colors.primary} />
                         <Text style={styles.cardTitle}>Payment Method</Text>
                     </View>
-                    <View style={styles.paymentList}>
-                        {PAYMENT_METHODS.map((method) => {
-                            const active = paymentMethod === method.id;
-                            return (
-                                <Pressable
-                                    key={method.id}
-                                    onPress={() => setPaymentMethod(method.id)}
-                                    style={[styles.paymentOption, active && styles.paymentOptionActive]}
-                                >
-                                    <Ionicons
-                                        name={method.icon}
-                                        size={20}
-                                        color={active ? theme.colors.primary : theme.colors.muted}
-                                    />
-                                    <Text
-                                        style={[
-                                            styles.paymentLabel,
-                                            active && styles.paymentLabelActive,
-                                        ]}
-                                    >
-                                        {method.label}
-                                    </Text>
-                                    {active && (
-                                        <Ionicons
-                                            name="checkmark-circle"
-                                            size={18}
-                                            color={theme.colors.primary}
-                                            style={styles.check}
-                                        />
-                                    )}
-                                </Pressable>
-                            );
-                        })}
+                    <View style={styles.codBadge}>
+                        <Ionicons name="cash" size={20} color={theme.colors.primary} />
+                        <Text style={styles.codLabel}>Cash on Delivery</Text>
+                        <Ionicons
+                            name="checkmark-circle"
+                            size={18}
+                            color={theme.colors.primary}
+                            style={styles.check}
+                        />
                     </View>
                 </View>
 
@@ -174,19 +142,13 @@ export default function CheckoutScreen({ navigation }) {
                     </View>
                     <View style={styles.summaryRows}>
                         <SummaryRow label={`Items (${totalItems})`} value={formatPrice(totalPrice)} />
-                        <SummaryRow
-                            label="Shipping"
-                            value={shipping === 0 ? "Free" : formatPrice(shipping)}
-                            valueColor={shipping === 0 ? theme.colors.success : undefined}
-                        />
-                        <SummaryRow label="Tax (8%)" value={formatPrice(tax)} />
                         <View style={styles.divider} />
-                        <SummaryRow label="Total" value={formatPrice(grandTotal)} bold />
+                        <SummaryRow label="Total" value={formatPrice(totalPrice)} bold />
                     </View>
                 </View>
 
                 <Button
-                    title={`Place Order · ${formatPrice(grandTotal)}`}
+                    title={`Place Order - ${formatPrice(totalPrice)}`}
                     onPress={handlePlaceOrder}
                     loading={loading}
                     icon="checkmark-circle-outline"
@@ -194,7 +156,7 @@ export default function CheckoutScreen({ navigation }) {
                 />
 
                 <Text style={styles.disclaimer}>
-                    By placing your order you agree to our Terms of Service. All prices include applicable taxes.
+                    By placing your order you agree to our Terms of Service. Payment will be collected upon delivery.
                 </Text>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -264,29 +226,21 @@ const styles = StyleSheet.create({
         gap: theme.spacing.sm,
     },
     half: { flex: 1 },
-    paymentList: { gap: theme.spacing.sm },
-    paymentOption: {
+    codBadge: {
         flexDirection: "row",
         alignItems: "center",
         gap: theme.spacing.sm,
         padding: theme.spacing.sm + 2,
         borderRadius: theme.borderRadius.md,
         borderWidth: 1.5,
-        borderColor: theme.colors.border,
-    },
-    paymentOptionActive: {
         borderColor: theme.colors.primary,
         backgroundColor: "#F5F3FF",
     },
-    paymentLabel: {
+    codLabel: {
         flex: 1,
         fontSize: theme.fontSize.sm,
-        fontWeight: theme.fontWeight.medium,
-        color: theme.colors.muted,
-    },
-    paymentLabelActive: {
-        color: theme.colors.primary,
         fontWeight: theme.fontWeight.semibold,
+        color: theme.colors.primary,
     },
     check: { marginLeft: "auto" },
     summaryRows: { gap: theme.spacing.sm - 2 },

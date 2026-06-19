@@ -4,41 +4,23 @@ import { theme } from "../../styles/theme";
 import { formatPrice } from "../../utils/formatters";
 
 export default function CartSummary({ totalPrice, totalItems, onCheckout, loading }) {
-    const shipping = totalPrice > 50 ? 0 : 4.99;
-    const tax = totalPrice * 0.08;
-    const grandTotal = totalPrice + shipping + tax;
-
     return (
         <View style={styles.container}>
             <Text style={styles.heading}>Order Summary</Text>
 
             <View style={styles.rows}>
                 <Row label={`Items (${totalItems})`} value={formatPrice(totalPrice)} />
-                <Row
-                    label="Shipping"
-                    value={shipping === 0 ? "Free" : formatPrice(shipping)}
-                    valueColor={shipping === 0 ? theme.colors.success : undefined}
-                />
-                <Row label="Tax (8%)" value={formatPrice(tax)} />
                 <View style={styles.divider} />
                 <Row
                     label="Total"
-                    value={formatPrice(grandTotal)}
+                    value={formatPrice(totalPrice)}
                     bold
                 />
             </View>
 
-            {totalPrice > 50 ? (
-                <View style={styles.freeBadge}>
-                    <Text style={styles.freeText}>🎉 You qualify for free shipping!</Text>
-                </View>
-            ) : (
-                <View style={styles.freeBadge}>
-                    <Text style={styles.freeText}>
-                        Add {formatPrice(50 - totalPrice)} more for free shipping
-                    </Text>
-                </View>
-            )}
+            <View style={styles.codBadge}>
+                <Text style={styles.codText}>Cash on Delivery</Text>
+            </View>
 
             <Button
                 title="Proceed to Checkout"
@@ -103,13 +85,13 @@ const styles = StyleSheet.create({
         fontWeight: theme.fontWeight.bold,
         color: theme.colors.dark,
     },
-    freeBadge: {
+    codBadge: {
         backgroundColor: "#F0FFF4",
         borderRadius: theme.borderRadius.md,
         padding: theme.spacing.sm,
         alignItems: "center",
     },
-    freeText: {
+    codText: {
         fontSize: theme.fontSize.xs,
         color: theme.colors.success,
         fontWeight: theme.fontWeight.semibold,

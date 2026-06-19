@@ -5,6 +5,8 @@ import AuthNavigator from "./AuthNavigator";
 import MainNavigator from "./MainNavigator";
 import CheckoutScreen from "../screens/checkout/CheckoutScreen";
 import SplashScreen from "../screens/auth/SplashScreen";
+import ProductListingScreen from "../screens/home/ProductListingScreen";
+import ProductDetailScreen from "../screens/home/ProductDetailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +24,8 @@ export default function AppNavigator() {
             {isAuthenticated ? (
                 <Stack.Group>
                     <Stack.Screen name="Main" component={MainNavigator} />
+                    <Stack.Screen name="ProductListing" component={ProductListingScreen} />
+                    <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
                     <Stack.Screen
                         name="Checkout"
                         component={CheckoutScreen}
