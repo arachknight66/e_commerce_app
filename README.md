@@ -1,10 +1,10 @@
-# Mobile E-Commerce MVP 📱
+# Mobile E-Commerce MVP 
 
 A high-performance, polished mobile e-commerce application built using **React Native (Expo)** and a **Node.js / Express / MongoDB** backend. This project serves as a fully functional Minimum Viable Product (MVP) designed for seamless shopping, secure local storage, and robust state management using the React Context API.
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 ### Frontend (Mobile App)
 - **Restful Authentication**: Complete splash screen flow, JWT-based user login, account registration, and local session caching via `AsyncStorage`.
@@ -23,14 +23,14 @@ A high-performance, polished mobile e-commerce application built using **React N
 
 ---
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 - **Frontend**: React Native, Expo (SDK 54), React Navigation, Axios, NativeWind (Tailwind CSS), AsyncStorage, Context API.
 - **Backend**: Node.js, Express.js, MongoDB Atlas (Mongoose), JSON Web Tokens (JWT).
 
 ---
 
-## 🚀 Local Installation & Setup
+##  Local Installation & Setup
 
 ### Prerequisites
 Make sure you have [Node.js](https://nodejs.org/) installed (version >= 18).
@@ -90,34 +90,3 @@ Make sure you have [Node.js](https://nodejs.org/) installed (version >= 18).
 5. Scan the generated QR code using the **Expo Go** application (Android) or your camera app (iOS) to run the application on your physical device.
 
 ---
-
-## 🖼️ Product Images Guide
-
-The application supports hosting product images locally on the backend server.
-1. Place all your product image files inside:
-   📁 `backend/public/images/products/`
-2. Name the images according to the products in the seed file (e.g., `iphone15.jpg`, `nike_shoes.jpg`, `yoga_mat.jpg`). 
-3. *Note: If an image is missing, the frontend automatically displays a clean, responsive placeholder.*
-
----
-
-## 📡 Live Presentation Tunnelling (Ngrok / Localtunnel)
-
-To present this application remotely or run it on a phone not on your local Wi-Fi subnet, you can expose the backend to the internet using **localtunnel**:
-
-1. Install localtunnel globally:
-   ```bash
-   npm install -g localtunnel
-   ```
-2. Create a tunnel for port `5000`:
-   ```bash
-   lt --port 5000
-   ```
-3. Update your `.env` configs with the public tunnel URL:
-   - **Backend `.env`**: Set `API_URL=https://<your-subdomain>.loca.lt`
-   - **Frontend `.env`**: Set `EXPO_PUBLIC_API_URL=https://<your-subdomain>.loca.lt/api`
-4. Re-run the backend seed script to update database image URLs:
-   ```bash
-   node src/seed/productSeed.js
-   ```
-5. Start the Expo server and share the Expo Go QR code with the reviewer.
